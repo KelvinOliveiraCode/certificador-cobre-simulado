@@ -1,0 +1,16 @@
+# Saida real da validacao / Real output of the validation command
+#
+# python -m pytest tests/ -v
+# Windows, Python 3.14, pytest 9.1 / caminhos de maquina mascarados
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: <repo>
+configfile: pyproject.toml
+plugins: anyio-4.13.0, cov-7.1.0
+collected 84 items
+
+tests\test_classificador.py ............................................ [ 52%]
+....                                                                     [ 57%]
+tests\test_mapa_medicao.py ....................................          [100%]
+
+============================= 84 passed in 1.06s ==============================

@@ -1,0 +1,127 @@
+# 12 cenarios de certificacao. Todos ficticios, simulados por padrao
+# estatistico com semente fixa - nenhum numero aqui veio de equipamento real.
+#
+# 7 cabos bons, 5 com falhas distintas (uma de cada tipo detectavel).
+
+padroes_disponiveis: [T568B, T568A]
+
+cenarios:
+  # --- Bons (7) ---
+  - nome: cabo-01-cat6-ok
+    categoria: "6"
+    comprimento_m: 45.0
+    perda_extra_db: 0.0
+    crosstalk_db: 52.0
+    resistencia_ohm: 20.5
+    desvio_ps_ns: 3.5
+    padrao: T568B
+
+  - nome: cabo-02-cat6-ok-longo
+    categoria: "6"
+    comprimento_m: 88.0
+    perda_extra_db: 0.0
+    crosstalk_db: 50.0
+    resistencia_ohm: 21.0
+    desvio_ps_ns: 4.2
+    padrao: T568B
+
+  - nome: cabo-03-cat6a-ok
+    categoria: "6A"
+    comprimento_m: 90.0
+    perda_extra_db: 0.0
+    crosstalk_db: 53.0
+    resistencia_ohm: 20.8
+    desvio_ps_ns: 3.8
+    padrao: T568B
+
+  - nome: cabo-04-cat6a-curto
+    categoria: "6A"
+    comprimento_m: 12.0
+    perda_extra_db: 0.0
+    crosstalk_db: 51.0
+    resistencia_ohm: 20.2
+    desvio_ps_ns: 3.1
+    padrao: T568B
+
+  - nome: cabo-05-cat6-padrao-a
+    categoria: "6"
+    comprimento_m: 60.0
+    perda_extra_db: 0.0
+    crosstalk_db: 52.5
+    resistencia_ohm: 20.9
+    desvio_ps_ns: 4.0
+    padrao: T568A
+
+  - nome: cabo-06-cat6-ressalva
+    categoria: "6"
+    comprimento_m: 84.0
+    perda_extra_db: 0.4
+    crosstalk_db: 50.5
+    resistencia_ohm: 21.5
+    desvio_ps_ns: 4.6
+    padrao: T568B
+
+  - nome: cabo-07-cat6a-maximo
+    categoria: "6A"
+    comprimento_m: 89.5
+    perda_extra_db: 0.0
+    crosstalk_db: 51.5
+    resistencia_ohm: 21.2
+    desvio_ps_ns: 4.1
+    padrao: T568B
+
+  # --- Com falha (5), uma de cada tipo ---
+  - nome: cabo-08-par-aberto
+    categoria: "6"
+    comprimento_m: 50.0
+    perda_extra_db: 0.0
+    crosstalk_db: 52.0
+    resistencia_ohm: 21.0
+    desvio_ps_ns: 4.0
+    defeito: aberto
+    padrao: T568B
+
+  - nome: cabo-09-par-em-curto
+    categoria: "6"
+    comprimento_m: 50.0
+    perda_extra_db: 0.0
+    crosstalk_db: 52.0
+    resistencia_ohm: 21.0
+    desvio_ps_ns: 4.0
+    defeito: curto
+    padrao: T568B
+
+  - nome: cabo-10-par-invertido
+    categoria: "6"
+    comprimento_m: 40.0
+    perda_extra_db: 0.0
+    crosstalk_db: 52.0
+    resistencia_ohm: 21.0
+    desvio_ps_ns: 4.0
+    defeito: invertido
+    # Par 1 e 2 trocados entre si: 1<->2 e 7<->8
+    pinos: [branco/marrom, branco/marrom, branco/verde, azul,
+            azul, branco/verde, branco/laranja, laranja]
+    padrao: T568B
+
+  - nome: cabo-11-split-pair
+    categoria: "6"
+    comprimento_m: 55.0
+    perda_extra_db: 0.0
+    crosstalk_db: 52.0
+    resistencia_ohm: 21.0
+    desvio_ps_ns: 4.0
+    defeito: split
+    # Par 1 partido: um fio no pino 1, o parceiro no pino 4 (nao adjacente).
+    pinos: [branco/laranja, laranja, branco/verde, branco/laranja,
+            azul, branco/verde, branco/marrom, marrom]
+    padrao: T568B
+
+  - nome: cabo-12-comprimento-acima
+    categoria: "6"
+    comprimento_m: 105.0
+    perda_extra_db: 0.0
+    crosstalk_db: 52.0
+    resistencia_ohm: 21.0
+    desvio_ps_ns: 4.0
+    padrao: T568B

@@ -1,0 +1,25 @@
+CABO                   CAT     COMP  SITUACAO
+---------------------- ---- -------  ----------------------
+cabo-01-cat6-ok        6      45.0m  APROVADO
+cabo-02-cat6-ok-longo  6      88.0m  APROVADO
+cabo-03-cat6a-ok       6A     90.0m  APROVADO COM RESSALVA
+cabo-04-cat6a-curto    6A     12.0m  APROVADO
+cabo-05-cat6-padrao-a  6      60.0m  APROVADO
+cabo-06-cat6-ressalva  6      84.0m  APROVADO
+cabo-07-cat6a-maximo   6A     89.5m  APROVADO COM RESSALVA
+cabo-08-par-aberto     6      50.0m  REPROVADO
+                                    -> NEXT/100/30.58 dB/41.80 dB
+                                    -> NEXT/250/28.97 dB/38.60 dB
+                                    -> resistencia/--/81.00 ohm/24.0 ohm
+                                    -> fiacao/aberto/--/--
+cabo-09-par-em-curto   6      50.0m  REPROVADO
+                                    -> fiacao/curto/--/--
+cabo-10-par-invertido  6      40.0m  REPROVADO
+                                    -> fiacao/invertido/--/--
+cabo-11-split-pair     6      55.0m  REPROVADO
+                                    -> desvio/--/13.29 ns/5.0 ns
+                                    -> fiacao/split/--/--
+cabo-12-comprimento-acima 6     105.0m  REPROVADO
+                                    -> comprimento/--/105.00 m/90 m
+
+7/12 aprovados

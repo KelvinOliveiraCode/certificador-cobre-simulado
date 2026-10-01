@@ -1,0 +1,9 @@
+Categoria 5e:
+   100 MHz   atenuacao <= 20.00 dB   NEXT >= 32.40 dB
+Categoria 6:
+   100 MHz   atenuacao <= 20.70 dB   NEXT >= 41.80 dB
+   250 MHz   atenuacao <= 26.60 dB   NEXT >= 38.60 dB
+Categoria 6A:
+   100 MHz   atenuacao <= 21.00 dB   NEXT >= 44.40 dB
+   250 MHz   atenuacao <= 26.00 dB   NEXT >= 41.40 dB
+   500 MHz   atenuacao <= 32.00 dB   NEXT >= 39.10 dB
