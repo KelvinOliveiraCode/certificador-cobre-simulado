@@ -85,8 +85,10 @@ cabo-12-comprimento-acima 6     105.0m  REPROVADO
 ```
 
 Cada linha `->` nomeia o parametro, a frequencia, o valor medido e o limite.
-Para reprovar por perda sao 18,20 dB; o codigo diz exatamente quais numeros
-ficaram de fora.
+Os 5 reprovados nao falham por perda: dois por fiacao (par aberto e par em
+curto), um por par invertido, um por split pair e um por comprimento acima de
+90 m. A atenuacao entra no orcamento de cada cabo, mas nenhum dos 12 cenarios
+estoura o limite dela: o que reprova aqui e fiacao e comprimento, nao o sinal.
 
 Outros comandos:
 
@@ -95,6 +97,12 @@ python -m certsim cabos                                     # limites por catego
 python -m certsim testar dados/cenarios.yaml --laudo exemplos/laudo-certificacao.md
 python -m certsim testar dados/cenarios.yaml --semente 999   # outra realizacao
 ```
+
+Os subcomandos e as flags sao os mesmos da secao PT-BR: a CLI nao tem apelido
+em ingles, para nao existir dois nomes para a mesma acao.
+
+The subcommands and flags are the same as in the PT-BR section: the CLI has no
+English alias, so the same action never has two names.
 
 ### O que aprendi
 
@@ -209,15 +217,17 @@ cabo-12-comprimento-acima 6     105.0m  REPROVADO
 ```
 
 Each `->` line names the parameter, the frequency, the measured value and the
-limit. To fail on loss by 18.20 dB, the code names exactly which numbers were
-outside.
+limit. The 5 rejected cables do not fail on loss: two on wiring (open pair and
+shorted pair), one on an inverted pair, one on a split pair and one on length
+above 90 m. Insertion loss is part of every cable budget, but none of the 12
+scenarios exceeds its limit: what fails here is wiring and length, not signal.
 
 Other commands:
 
 ```powershell
-python -m certsim cables                                     # limits per category
-python -m certsim test data/cenarios.yaml --report examples/laudo-certificacao.md
-python -m certsim test data/cenarios.yaml --seed 999         # another draw
+python -m certsim cabos                                     # limits per category
+python -m certsim testar dados/cenarios.yaml --laudo exemplos/laudo-certificacao.md
+python -m certsim testar dados/cenarios.yaml --semente 999   # another draw
 ```
 
 ### What I learned
