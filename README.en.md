@@ -1,118 +1,95 @@
 # certificador-cobre-simulado
 
-<div align="center">
-
 **English** · [Português (Brasil)](README.md)
 
-</div>
-
-[![Python 3](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn)](https://scikit-learn.org/) [![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas)](https://pandas.pydata.org/) [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest)](https://docs.pytest.org/) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
-
-### Simula certificacao de cabo: mapa de fiacao, NEXT, split pair e laudo com limite estourado
-
----
+[![Python 3](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](#) [![PyYAML](https://img.shields.io/badge/PyYAML-only%20dep-3776AB?style=flat-square)](#) [![pytest](https://img.shields.io/badge/pytest-84%20tests-0A9EDC?style=flat-square&logo=pytest)](#) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
 
 ## What it is
 
-Simula certificacao de cabo: mapa de fiacao, NEXT, split pair e laudo com limite estourado
+**A simulated copper-network cable certifier**: it measures the electrical parameters per **category** (Cat 5e/6/6A with their frequencies), checks the **pin map** (T568B, with **split-pair** detection) and classifies the result with a **verdict per parameter**, generating a textual **test report (laudo)**. Virtual equipment — the same logical flow as a field tester. It is an educational networking lab.
 
----
+## Status
 
-## Quick Start
+An educational lab, working and tested (84 tests). Measurements use a fixed seed (reproducible).
 
-```bash
-# Clone and enter
-git clone https://github.com/KelvinOliveiraCode/<repo>.git
-cd <repo>
+## Features
 
-# Install dependencies
-# No requirements.txt detected
+- **Measurement** (`medicao.py`): `Perfil` (category, length) + `medir(profile, seed=SEMENTE_FIXA)` — parameters per frequency (`frequencias_da`).
+- **Pin map** (`mapa.py`): `mapa_padrao('T568B')`, `conferir_mapa` and `detectar_split_pair` (crossed pairs); `ErroDeMapa`.
+- **Classification** (`classificador.py`): `classificar(profile, seed)` → `Veredito` (per parameter: pass/fail).
+- **Report** (`laudo.py`): `gerar_laudo` — a textual result per cable with the equipment name (`_laudo_cabo`).
+- **CLI** (`certsim`): `testar` (profile → report) and `cabos` (cable list from the scenario YAML).
 
-# Run the project
-python main.py
+## Architecture
 
-# Run tests
-pytest
+A `certsim` package with `medicao` (parameters), `mapa` (pin maps), `classificador` (verdicts), `laudo` (output) and `cli.py`.
+
+```mermaid
+flowchart LR
+    P[Profile cat/length] --> M[medir - category frequencies]
+    M --> V[classificar -> Veredito]
+    MP[T568B pin map] --> SP[detectar_split_pair]
+    V --> L[gerar_laudo]
+    SP --> L
+    CLI[certsim testar/cabos] --> M
 ```
 
-## How it works
+## Stack
 
-Estrutura limpa e modular com separação de responsabilidades.
+- Python ≥ 3.10
+- PyYAML ≥ 6.0 (only dependency)
+- pytest (dev)
 
----
+## Repository layout
 
-## Capabilities
+```
+certificador-cobre-simulado/
+├── pyproject.toml · BRIEF.md
+├── src/certsim/
+│   ├── medicao.py · mapa.py · classificador.py
+│   ├── laudo.py · cli.py
+├── dados/             # cable scenarios (YAML)
+├── tests/             # 84 tests
+└── LICENSE            # MIT
+```
 
-| Capacidade | Descrição |
-|------------|-------------|
-| Carregamento de Dados | Auto-download do TensorFlow creditcard.csv (284k transações) com cache local |
-| EDA e Visualização | Distribuição de classes, histogramas de Amount, heatmaps de correlação (matplotlib/seaborn) |
-| Pré-processamento | RobustScaler em Amount/Time, split estratificado, remoção de duplicatas |
-| Balanceamento | SMOTE oversampling (fallback: class_weight="balanced") |
-| Modelagem | LogisticRegression, RandomForest, ExtraTrees com RandomizedSearchCV (StratifiedKFold) |
-| Métricas | Accuracy, Precision, Recall, F1, ROC AUC, Specificity, Confusion Matrix |
-| Seleção | Score ponderado: Recall 40% + F1 30% + Precision 20% + Accuracy 10% |
-| Persistência | Serialização joblib para modelo, scaler e resultados completos |
+## Prerequisites and installation
 
+```bash
+pip install -e .
+```
 
----
+## How to run
 
+```bash
+certsim testar dados/<profile>.yaml
+certsim cabos dados/scenarios.yaml
+```
 
+## Tests and quality
 
----
+Real command (verified by the agent):
 
-## FAQ
+```bash
+PYTHONPATH=src python -m pytest tests/
+# 84 passed
+```
 
-<details>
-<summary><strong>What is this project?</strong></summary>
+## Technical decisions and trade-offs
 
-A Python study/project demonstrating core concepts.
+- **Simulation with a fixed seed**: reproducible reports (deterministic per call) — good for validating classification logic.
+- **Per-category frequencies**: the model covers Cat 5e/6/6A on the main parameters (simplified NEXT/FEXT/attenuation).
+- **T568B map + split pair**: catches the most common field miswiring.
 
-</details>
+## Known limitations and roadmap
 
-<details>
-<summary><strong>How do I run it?</strong></summary>
+- **Simulated** measurement (not real field equipment, e.g. Fluke DSX).
+- Simplified parameters: it does not replace the full TIA-568 standard.
 
-See [Quick Start](#quick-start) for copy-paste commands.
+## Development process
 
-</details>
+An individual project by Kelvin Oliveira, built with orchestrated AI agents and reviewed by the author.
 
-<details>
-<summary><strong>Are there tests?</strong></summary>
+## License and author
 
-No automated tests in this repository.
-
-</details>
-
-<details>
-<summary><strong>Can I use this in production?</strong></summary>
-
-This is a **study/portfolio project**. Review and harden (auth, persistence, monitoring, etc.) before production use.
-
-</details>
-
-
-
----
-
-## Documentation
-
-- **Source Code** ,  Browse the `src/` directory for implementation details
-- **API Reference** ,  Inline docstrings + type hints
-- **Architecture Diagram** ,  See [architecture.mermaid](docs/architecture.mermaid) (if present)
-- **Changelog** ,  [CHANGELOG.md](CHANGELOG.md) (if present)
-- **Contributing** ,  [CONTRIBUTING.md](CONTRIBUTING.md) (if present)
-
-## License
-
-[MIT](LICENSE) ,  Kelvin Oliveira
-
----
-
-<div align="center">
-
-**Built with** · Python 3 + scikit-learn + pandas
-
-**Author** · [Kelvin Oliveira](https://github.com/KelvinOliveiraCode) · [Portfolio](https://kelvinoliveiracode.github.io/portfolio/)
-
-</div>
+MIT — Copyright (c) 2026 Kelvin Rebelo de Oliveira. Author: [Kelvin Oliveira](https://github.com/KelvinOliveiraCode) · [Portfolio](https://kelvinoliveiracode.github.io/portfolio/)
